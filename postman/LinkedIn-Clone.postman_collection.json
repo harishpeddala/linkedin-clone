@@ -1,438 +1,787 @@
 {
   "info": {
-    "name": "LinkedIn Clone API",
-    "description": "REST API endpoints for the LinkedIn Clone backend. Auth uses an httpOnly `token` cookie set on login/register — Postman stores it automatically, so run a Login request first, then the protected requests will work in the same collection.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "_postman_id": "1cac4037-19b6-40a9-ae0b-87531cb8afdc",
+    "name": "LinkedInClone",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52947015",
+    "_collection_link": "https://go.postman.co/collection/52947015-1cac4037-19b6-40a9-ae0b-87531cb8afdc?source=collection_link"
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:3000",
-      "type": "string"
-    }
-  ],
   "item": [
     {
+      "name": "register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n   \"email\":\"sunny@gmail.com\",\r\n   \"password\":\"54321\",\r\n   \"f_name\": \"Sunny Reddy\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n   \"email\":\"jayavardhan@gmail.com\",\r\n   \"password\":\"54321\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "Auth",
-      "item": [
-        {
-          "name": "Register",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\",\n  \"f_name\": \"Test User\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "register"]
-            }
-          }
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n   \"email\":\"harishpeddala@gmail.com\",\r\n   \"password\":\"12345\",\r\n   \"f_name\": \"Peddala Harish\"\r\n}"
         },
-        {
-          "name": "Login",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "login"]
-            }
-          }
-        },
-        {
-          "name": "Google Login",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"token\": \"<google-id-token>\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/google",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "google"]
-            }
-          }
-        },
-        {
-          "name": "Get Self",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/self",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "self"]
-            }
-          }
-        },
-        {
-          "name": "Get Profile By Id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/user/:id",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "user", ":id"],
-              "variable": [{ "key": "id", "value": "<userId>" }]
-            }
-          }
-        },
-        {
-          "name": "Update User",
-          "request": {
-            "method": "PUT",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"user\": {\n    \"f_name\": \"Updated Name\",\n    \"headline\": \"Software Engineer\"\n  }\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/update",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "update"]
-            }
-          }
-        },
-        {
-          "name": "Find User",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/findUser?query=test",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "findUser"],
-              "query": [{ "key": "query", "value": "test" }]
-            }
-          }
-        },
-        {
-          "name": "Send Friend Request",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"receiverId\": \"<userId>\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/sendFriendRequest",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "sendFriendRequest"]
-            }
-          }
-        },
-        {
-          "name": "Accept Friend Request",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"senderId\": \"<userId>\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/acceptFriendRequest",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "acceptFriendRequest"]
-            }
-          }
-        },
-        {
-          "name": "Get Friends List",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/getFriendsList",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "getFriendsList"]
-            }
-          }
-        },
-        {
-          "name": "Get Pending Friends List",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/getPendingFriendsList",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "getPendingFriendsList"]
-            }
-          }
-        },
-        {
-          "name": "Remove Friend",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/removeFriend/:friendId",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "removeFriend", ":friendId"],
-              "variable": [{ "key": "friendId", "value": "<userId>" }]
-            }
-          }
-        },
-        {
-          "name": "Logout",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/logout",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "logout"]
-            }
-          }
+        "url": {
+          "raw": "http://localhost:3000/api/auth/self/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "self",
+            ""
+          ]
         }
-      ]
+      },
+      "response": []
     },
     {
-      "name": "Posts",
-      "item": [
-        {
-          "name": "Add Post",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"desc\": \"My first post!\",\n  \"imageLink\": \"\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/post/",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "post", ""]
+      "name": "updateUser",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n   \"user\":{\r\n     \"about\":\"About section is updated from UpdateUserData API\"\r\n   }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
             }
           }
         },
-        {
-          "name": "Like / Dislike Post",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"postId\": \"<postId>\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/post/likeDislike",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "post", "likeDislike"]
-            }
-          }
-        },
-        {
-          "name": "Get All Posts",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/post/getAllPosts",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "post", "getAllPosts"]
-            }
-          }
-        },
-        {
-          "name": "Get Post By Id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/post/getPostById/:id",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "post", "getPostById", ":id"],
-              "variable": [{ "key": "id", "value": "<postId>" }]
-            }
-          }
-        },
-        {
-          "name": "Get Top 5 Posts",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/post/getTop5Posts/:id",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "post", "getTop5Posts", ":id"],
-              "variable": [{ "key": "id", "value": "<userId>" }]
-            }
-          }
-        },
-        {
-          "name": "Get User Posts",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/post/getUserPosts/:id",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "post", "getUserPosts", ":id"],
-              "variable": [{ "key": "id", "value": "<userId>" }]
-            }
-          }
+        "url": {
+          "raw": "http://localhost:3000/api/auth/update",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "update"
+          ]
         }
-      ]
+      },
+      "response": []
     },
     {
-      "name": "Comments",
-      "item": [
-        {
-          "name": "Add Comment",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"postId\": \"<postId>\",\n  \"comment\": \"Nice post!\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/comment/",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "comment", ""]
-            }
-          }
+      "name": "getProfileById",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n   \"user\":{\r\n     \"about\":\"About section is updated from UpdateUserData API\"\r\n   }\r\n}"
         },
-        {
-          "name": "Get Comments By Post Id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/comment/:postId",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "comment", ":postId"],
-              "variable": [{ "key": "postId", "value": "<postId>" }]
-            }
-          }
+        "url": {
+          "raw": "http://localhost:3000/api/auth/user/6a2e8427ea355f29bb6e3a8e",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "user",
+            "6a2e8427ea355f29bb6e3a8e"
+          ]
         }
-      ]
+      },
+      "response": []
     },
     {
-      "name": "Notifications",
-      "item": [
-        {
-          "name": "Get Notifications",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/notification/",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "notification", ""]
+      "name": "logout",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n   \"user\":{\r\n     \r\n   }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
             }
           }
         },
-        {
-          "name": "Mark As Read",
-          "request": {
-            "method": "PUT",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"notificationId\": \"<notificationId>\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/notification/markAsRead",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "notification", "markAsRead"]
-            }
-          }
-        },
-        {
-          "name": "Get Active Notifications",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/notification/activeNotifications",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "notification", "activeNotifications"]
-            }
-          }
+        "url": {
+          "raw": "http://localhost:3000/api/auth/logout",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "logout"
+          ]
         }
-      ]
+      },
+      "response": []
     },
     {
-      "name": "Conversations",
-      "item": [
-        {
-          "name": "Add Conversation",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"recipientId\": \"<userId>\",\n  \"message\": \"Hello there!\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/conversation/addConversation",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "conversation", "addConversation"]
+      "name": "addPost",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"desc\":\"This is image description\",\r\n    \"imageLink\" : \"https://media.istockphoto.com/id/1427517220/photo/carbon-neutral-and-net-zero-concept-natural-environment-a-climate-neutral-long-term-strategy.jpg?s=612x612&w=0&k=20&c=H091tXnWfRST4Ai_B7LgnWhaT9v5LXxAB3IFglj7nLQ=\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
             }
           }
         },
-        {
-          "name": "Get Conversations",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/conversation/getConversations",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "conversation", "getConversations"]
-            }
-          }
+        "url": {
+          "raw": "http://localhost:3000/api/post",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "post"
+          ]
         }
-      ]
+      },
+      "response": []
     },
     {
-      "name": "Messages",
-      "item": [
-        {
-          "name": "Send Message",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"conversationId\": \"<conversationId>\",\n  \"message\": \"Hi!\",\n  \"picture\": \"\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/message/",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "message", ""]
+      "name": "likeDislikePost",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"postId\":\"6a30291525ff04baba70eb38\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
             }
           }
         },
-        {
-          "name": "Get Messages",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/message/:conversationId",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "message", ":conversationId"],
-              "variable": [{ "key": "conversationId", "value": "<conversationId>" }]
+        "url": {
+          "raw": "http://localhost:3000/api/post/likeDislike",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "post",
+            "likeDislike"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getAllPosts",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/post/getAllPosts",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "post",
+            "getAllPosts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getPostById",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/post/getPostById/6a30291525ff04baba70eb38",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "post",
+            "getPostById",
+            "6a30291525ff04baba70eb38"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getTop5Posts",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/post/getTop5Posts/6a2e8427ea355f29bb6e3a8e",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "post",
+            "getTop5Posts",
+            "6a2e8427ea355f29bb6e3a8e"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getUserPosts",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/post/getUserPosts/6a2e8427ea355f29bb6e3a8e",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "post",
+            "getUserPosts",
+            "6a2e8427ea355f29bb6e3a8e"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "addComment",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"postId\":\"6a30291525ff04baba70eb38\",\r\n    \"comment\": \"Hello, Welcome to Coding World\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
             }
           }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/comment",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "comment"
+          ]
         }
-      ]
+      },
+      "response": []
+    },
+    {
+      "name": "getCommentsByPostId",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/comment/6a30291525ff04baba70eb38",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "comment",
+            "6a30291525ff04baba70eb38"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "findUser",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/auth/findUser?query=jaya",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "findUser"
+          ],
+          "query": [
+            {
+              "key": "query",
+              "value": "jaya"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "sendFriendRequest",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n   \"receiverId\":\"6a3180c143c8853b629523fd\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/auth/sendFriendRequest",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "sendFriendRequest"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "acceptFriendRequest",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n   \"senderId\":\"6a2e8427ea355f29bb6e3a8e\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/auth/acceptFriendRequest",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "acceptFriendRequest"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getFriendsList",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n   \"senderId\":\"6a2e8427ea355f29bb6e3a8e\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/auth/getFriendsList",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "getFriendsList"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getPendingFriendsList",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/auth/getPendingFriendsList",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "getPendingFriendsList"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "removeFriend",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/auth/removeFriend/6a2e8427ea355f29bb6e3a8e",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "removeFriend",
+            "6a2e8427ea355f29bb6e3a8e"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getNotifications",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/notification",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "notification"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "markAsRead",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n   \"notificationId\":\"6a3180c143c8853b629523fd\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/notification/markAsRead",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "notification",
+            "markAsRead"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getActiveNotifications",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/notification/activeNotifications",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "notification",
+            "activeNotifications"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getConversations",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/conversation/getConversations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "conversation",
+            "getConversations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "addConversation",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"recipientId\": \"6a318a5f170d6b89b1c16c2a\",\r\n    \"message\":\"Hello, Welcome to LinkedIn Community...\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/conversation/addConversation",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "conversation",
+            "addConversation"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "sendMessage",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"conversationId\":\"6a321a370c5232eec914550a\",\r\n    \"message\": \"How it the trip???\",\r\n    \"picture\":\"\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/message",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "message"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getMessages",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"conversationId\":\"6a321a370c5232eec914550a\",\r\n    \"message\": \"Congratulations.. Begin new chapter ...\",\r\n    \"picture\":\"\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/message/6a321a370c5232eec914550a",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "message",
+            "6a321a370c5232eec914550a"
+          ]
+        }
+      },
+      "response": []
     }
   ]
 }
