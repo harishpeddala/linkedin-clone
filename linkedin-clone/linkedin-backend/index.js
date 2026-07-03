@@ -4,6 +4,8 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const { Server } = require('socket.io');
 const http = require('http');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -44,6 +46,13 @@ io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
 });
 
+// API documentation (Swagger UI)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.get('/api-docs.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
+
 const userRouter = require('./routes/user');
 const postRouter = require('./routes/post');
 const notificationRouter = require('./routes/notification');
@@ -60,4 +69,5 @@ app.use('/api/message', messageRouter);
 
 server.listen(PORT, () => {
     console.log(`Click to follow: http://localhost:${PORT}`);
+    console.log(`API docs available at: http://localhost:${PORT}/api-docs`);
 });

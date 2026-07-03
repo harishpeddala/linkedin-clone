@@ -6,17 +6,18 @@ RESTful API for the LinkedIn Clone application, built with **Node.js**, **Expres
 
 ## Tech Stack
 
-| Concern | Library |
-|---|---|
-| Runtime | Node.js |
-| Web framework | Express 5 |
-| Database | MongoDB + Mongoose |
-| Authentication | JSON Web Tokens (`jsonwebtoken`), httpOnly cookies |
-| Password hashing | `bcryptjs` |
-| Google Sign-In | `google-auth-library` |
-| Real-time chat | `socket.io` |
-| Config | `dotenv` |
-| Cookies / CORS | `cookie-parser`, `cors` |
+| Concern          | Library                                            |
+| ---------------- | -------------------------------------------------- |
+| Runtime          | Node.js                                            |
+| Web framework    | Express 5                                          |
+| Database         | MongoDB + Mongoose                                 |
+| Authentication   | JSON Web Tokens (`jsonwebtoken`), httpOnly cookies |
+| Password hashing | `bcryptjs`                                         |
+| Google Sign-In   | `google-auth-library`                              |
+| Real-time chat   | `socket.io`                                        |
+| API docs         | `swagger-ui-express` (OpenAPI 3.0)                 |
+| Config           | `dotenv`                                           |
+| Cookies / CORS   | `cookie-parser`, `cors`                            |
 
 ---
 
@@ -41,11 +42,11 @@ GOOGLE_CLIENT_ID=your-google-oauth-client-id.apps.googleusercontent.com
 JWT_PRIVATE_KEY=your-strong-secret-key
 ```
 
-| Variable | Required | Description |
-|---|---|---|
-| `PORT` | Optional (defaults to `3000`) | Port the API listens on |
+| Variable           | Required                       | Description                                     |
+| ------------------ | ------------------------------ | ----------------------------------------------- |
+| `PORT`             | Optional (defaults to `3000`)  | Port the API listens on                         |
 | `GOOGLE_CLIENT_ID` | **Mandatory** for Google login | OAuth client ID used to verify Google ID tokens |
-| `JWT_PRIVATE_KEY` | **Mandatory** | Secret used to sign authentication JWTs |
+| `JWT_PRIVATE_KEY`  | **Mandatory**                  | Secret used to sign authentication JWTs         |
 
 > **Security:** `config.env` is git-ignored and must never be committed. Use a strong, unique `JWT_PRIVATE_KEY` in production.
 
@@ -73,7 +74,19 @@ Once running you should see:
 ```
 MongoDB connected successfully
 Click to follow: http://localhost:3000
+API docs available at: http://localhost:3000/api-docs
 ```
+
+---
+
+## API Documentation (Swagger)
+
+Interactive API documentation is served with Swagger UI once the backend is running:
+
+- **Swagger UI:** http://localhost:3000/api-docs
+- **Raw OpenAPI spec (JSON):** http://localhost:3000/api-docs.json
+
+Every endpoint is documented with request bodies, parameters, and example values. Because auth uses an httpOnly `token` cookie, run the **login** request from Swagger UI first — the browser stores the cookie automatically, and the protected endpoints will then work. The spec lives in [`swagger.js`](swagger.js).
 
 ---
 
@@ -84,56 +97,62 @@ Base URL: `http://localhost:3000`
 Authenticated routes require the httpOnly `token` cookie, which is set automatically on successful login/register.
 
 ### Auth — `/api/auth`
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| POST | `/register` | No | Register with email, password, name |
-| POST | `/login` | No | Log in with email/password |
-| POST | `/google` | No | Log in / register via Google ID token |
-| GET | `/self` | Yes | Get the current logged-in user |
-| GET | `/user/:id` | No | Get a user profile by ID |
-| PUT | `/update` | Yes | Update the current user's profile |
-| GET | `/findUser?query=` | Yes | Search users by name/email |
-| POST | `/sendFriendRequest` | Yes | Send a connection request |
-| POST | `/acceptFriendRequest` | Yes | Accept a connection request |
-| GET | `/getFriendsList` | Yes | List accepted connections |
-| GET | `/getPendingFriendsList` | Yes | List pending requests |
-| DELETE | `/removeFriend/:friendId` | Yes | Remove a connection |
-| POST | `/logout` | Yes | Clear the auth cookie |
+
+| Method | Endpoint                  | Auth | Description                           |
+| ------ | ------------------------- | ---- | ------------------------------------- |
+| POST   | `/register`               | No   | Register with email, password, name   |
+| POST   | `/login`                  | No   | Log in with email/password            |
+| POST   | `/google`                 | No   | Log in / register via Google ID token |
+| GET    | `/self`                   | Yes  | Get the current logged-in user        |
+| GET    | `/user/:id`               | No   | Get a user profile by ID              |
+| PUT    | `/update`                 | Yes  | Update the current user's profile     |
+| GET    | `/findUser?query=`        | Yes  | Search users by name/email            |
+| POST   | `/sendFriendRequest`      | Yes  | Send a connection request             |
+| POST   | `/acceptFriendRequest`    | Yes  | Accept a connection request           |
+| GET    | `/getFriendsList`         | Yes  | List accepted connections             |
+| GET    | `/getPendingFriendsList`  | Yes  | List pending requests                 |
+| DELETE | `/removeFriend/:friendId` | Yes  | Remove a connection                   |
+| POST   | `/logout`                 | Yes  | Clear the auth cookie                 |
 
 ### Posts — `/api/post`
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| POST | `/` | Yes | Create a post |
-| POST | `/likeDislike` | Yes | Toggle like on a post |
-| GET | `/getAllPosts` | No | Get all posts (feed) |
-| GET | `/getPostById/:id` | Yes | Get a single post |
-| GET | `/getTop5Posts/:id` | Yes | Get a user's 5 most recent posts |
-| GET | `/getUserPosts/:id` | Yes | Get all posts by a user |
+
+| Method | Endpoint            | Auth | Description                      |
+| ------ | ------------------- | ---- | -------------------------------- |
+| POST   | `/`                 | Yes  | Create a post                    |
+| POST   | `/likeDislike`      | Yes  | Toggle like on a post            |
+| GET    | `/getAllPosts`      | No   | Get all posts (feed)             |
+| GET    | `/getPostById/:id`  | Yes  | Get a single post                |
+| GET    | `/getTop5Posts/:id` | Yes  | Get a user's 5 most recent posts |
+| GET    | `/getUserPosts/:id` | Yes  | Get all posts by a user          |
 
 ### Comments — `/api/comment`
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| POST | `/` | Yes | Add a comment to a post |
-| GET | `/:postId` | Yes | Get comments for a post |
+
+| Method | Endpoint   | Auth | Description             |
+| ------ | ---------- | ---- | ----------------------- |
+| POST   | `/`        | Yes  | Add a comment to a post |
+| GET    | `/:postId` | Yes  | Get comments for a post |
 
 ### Notifications — `/api/notification`
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| GET | `/` | Yes | Get all notifications |
-| PUT | `/markAsRead` | Yes | Mark notification(s) as read |
-| GET | `/activeNotifications` | Yes | Get unread notifications |
+
+| Method | Endpoint               | Auth | Description                  |
+| ------ | ---------------------- | ---- | ---------------------------- |
+| GET    | `/`                    | Yes  | Get all notifications        |
+| PUT    | `/markAsRead`          | Yes  | Mark notification(s) as read |
+| GET    | `/activeNotifications` | Yes  | Get unread notifications     |
 
 ### Conversations — `/api/conversation`
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| POST | `/addConversation` | Yes | Start / fetch a conversation |
-| GET | `/getConversations` | Yes | List the user's conversations |
+
+| Method | Endpoint            | Auth | Description                   |
+| ------ | ------------------- | ---- | ----------------------------- |
+| POST   | `/addConversation`  | Yes  | Start / fetch a conversation  |
+| GET    | `/getConversations` | Yes  | List the user's conversations |
 
 ### Messages — `/api/message`
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| POST | `/` | Yes | Send a message |
-| GET | `/:conversationId` | Yes | Get messages in a conversation |
+
+| Method | Endpoint           | Auth | Description                    |
+| ------ | ------------------ | ---- | ------------------------------ |
+| POST   | `/`                | Yes  | Send a message                 |
+| GET    | `/:conversationId` | Yes  | Get messages in a conversation |
 
 > A ready-to-import **Postman collection** covering all of the above lives at [`postman/LinkedIn-Clone.postman_collection.json`](../../postman/LinkedIn-Clone.postman_collection.json). Run a **Login** request first so the auth cookie is stored, then call the protected endpoints.
 
@@ -170,6 +189,6 @@ linkedin-backend/
 
 ## Available Scripts
 
-| Command | Description |
-|---|---|
+| Command     | Description                               |
+| ----------- | ----------------------------------------- |
 | `npm start` | Run the server with nodemon (auto-reload) |
