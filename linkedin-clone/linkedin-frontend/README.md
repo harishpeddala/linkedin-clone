@@ -6,17 +6,17 @@ A responsive LinkedIn-style single-page application built with **React 19**, **V
 
 ## Tech Stack
 
-| Concern | Library |
-|---|---|
-| Framework | React 19 |
-| Build tool | Vite |
-| Styling | Tailwind CSS 4 |
-| Routing | React Router DOM 7 |
-| HTTP client | Axios |
-| UI icons/components | Material UI (`@mui/material`, `@mui/icons-material`) |
-| Google Sign-In | `@react-oauth/google` |
-| Real-time chat | `socket.io-client` |
-| Notifications/toasts | `react-toastify` |
+| Concern              | Library                                              |
+| -------------------- | ---------------------------------------------------- |
+| Framework            | React 19                                             |
+| Build tool           | Vite                                                 |
+| Styling              | Tailwind CSS 4                                       |
+| Routing              | React Router DOM 7                                   |
+| HTTP client          | Axios                                                |
+| UI icons/components  | Material UI (`@mui/material`, `@mui/icons-material`) |
+| Google Sign-In       | `@react-oauth/google`                                |
+| Real-time chat       | `socket.io-client`                                   |
+| Notifications/toasts | `react-toastify`                                     |
 
 ---
 
@@ -61,12 +61,12 @@ The app will be available at **http://localhost:5173**.
 
 ## Available Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start the Vite dev server with hot reload |
-| `npm run build` | Build the production bundle into `dist/` |
-| `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run ESLint across the project |
+| Command           | Description                               |
+| ----------------- | ----------------------------------------- |
+| `npm run dev`     | Start the Vite dev server with hot reload |
+| `npm run build`   | Build the production bundle into `dist/`  |
+| `npm run preview` | Preview the production build locally      |
+| `npm run lint`    | Run ESLint across the project             |
 
 ---
 
