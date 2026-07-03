@@ -1,0 +1,438 @@
+{
+  "info": {
+    "name": "LinkedIn Clone API",
+    "description": "REST API endpoints for the LinkedIn Clone backend. Auth uses an httpOnly `token` cookie set on login/register — Postman stores it automatically, so run a Login request first, then the protected requests will work in the same collection.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\",\n  \"f_name\": \"Test User\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Google Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"<google-id-token>\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/google",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "google"]
+            }
+          }
+        },
+        {
+          "name": "Get Self",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/self",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "self"]
+            }
+          }
+        },
+        {
+          "name": "Get Profile By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/user/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "user", ":id"],
+              "variable": [{ "key": "id", "value": "<userId>" }]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": {\n    \"f_name\": \"Updated Name\",\n    \"headline\": \"Software Engineer\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/update",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "update"]
+            }
+          }
+        },
+        {
+          "name": "Find User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/findUser?query=test",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "findUser"],
+              "query": [{ "key": "query", "value": "test" }]
+            }
+          }
+        },
+        {
+          "name": "Send Friend Request",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"receiverId\": \"<userId>\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/sendFriendRequest",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "sendFriendRequest"]
+            }
+          }
+        },
+        {
+          "name": "Accept Friend Request",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"senderId\": \"<userId>\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/acceptFriendRequest",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "acceptFriendRequest"]
+            }
+          }
+        },
+        {
+          "name": "Get Friends List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/getFriendsList",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "getFriendsList"]
+            }
+          }
+        },
+        {
+          "name": "Get Pending Friends List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/getPendingFriendsList",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "getPendingFriendsList"]
+            }
+          }
+        },
+        {
+          "name": "Remove Friend",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/removeFriend/:friendId",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "removeFriend", ":friendId"],
+              "variable": [{ "key": "friendId", "value": "<userId>" }]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Posts",
+      "item": [
+        {
+          "name": "Add Post",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"desc\": \"My first post!\",\n  \"imageLink\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/post/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "post", ""]
+            }
+          }
+        },
+        {
+          "name": "Like / Dislike Post",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"postId\": \"<postId>\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/post/likeDislike",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "post", "likeDislike"]
+            }
+          }
+        },
+        {
+          "name": "Get All Posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/post/getAllPosts",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "post", "getAllPosts"]
+            }
+          }
+        },
+        {
+          "name": "Get Post By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/post/getPostById/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "post", "getPostById", ":id"],
+              "variable": [{ "key": "id", "value": "<postId>" }]
+            }
+          }
+        },
+        {
+          "name": "Get Top 5 Posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/post/getTop5Posts/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "post", "getTop5Posts", ":id"],
+              "variable": [{ "key": "id", "value": "<userId>" }]
+            }
+          }
+        },
+        {
+          "name": "Get User Posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/post/getUserPosts/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "post", "getUserPosts", ":id"],
+              "variable": [{ "key": "id", "value": "<userId>" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Comments",
+      "item": [
+        {
+          "name": "Add Comment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"postId\": \"<postId>\",\n  \"comment\": \"Nice post!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/comment/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "comment", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Comments By Post Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/comment/:postId",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "comment", ":postId"],
+              "variable": [{ "key": "postId", "value": "<postId>" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get Notifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notification/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notification", ""]
+            }
+          }
+        },
+        {
+          "name": "Mark As Read",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notificationId\": \"<notificationId>\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notification/markAsRead",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notification", "markAsRead"]
+            }
+          }
+        },
+        {
+          "name": "Get Active Notifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notification/activeNotifications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notification", "activeNotifications"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Conversations",
+      "item": [
+        {
+          "name": "Add Conversation",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipientId\": \"<userId>\",\n  \"message\": \"Hello there!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/conversation/addConversation",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "conversation", "addConversation"]
+            }
+          }
+        },
+        {
+          "name": "Get Conversations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/conversation/getConversations",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "conversation", "getConversations"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Messages",
+      "item": [
+        {
+          "name": "Send Message",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"conversationId\": \"<conversationId>\",\n  \"message\": \"Hi!\",\n  \"picture\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/message/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "message", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Messages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/message/:conversationId",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "message", ":conversationId"],
+              "variable": [{ "key": "conversationId", "value": "<conversationId>" }]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
